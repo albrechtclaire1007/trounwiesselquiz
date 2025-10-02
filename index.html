@@ -1,343 +1,113 @@
 <!DOCTYPE html>
 <html lang="lb">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richteg oder falsch? Kräiz un.</title>
-    <style>
-        @font-face {
-            font-family: 'Schoulschreft';
-            src: url('https://github.com/albrechtclaire1007/schoulschreft/raw/main/schoulschreft_bold%5B2%5D.TTF') format('truetype');
-        }
-        
-        body {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Schoulschreft', Arial, sans-serif;
-            background-color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .header {
-            background-color: #1c2d4f;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .quiz-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
-        .question {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 60px;
-            color: #1c2d4f;
-            line-height: 1.4;
-            max-width: 600px;
-        }
-        
-        .options {
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .option {
-            background: white;
-            border: 4px solid;
-            border-radius: 20px;
-            padding: 30px 50px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 150px;
-            text-align: center;
-            user-select: none;
-        }
-        
-        .option.richteg {
-            border-color: #1c2d4f;
-            color: #1c2d4f;
-        }
-        
-        .option.falsch {
-            border-color: #f2ac3b;
-            color: #f2ac3b;
-        }
-        
-        .option:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .option.richteg:hover {
-            background-color: #1c2d4f;
-            color: white;
-        }
-        
-        .option.falsch:hover {
-            background-color: #f2ac3b;
-            color: white;
-        }
-        
-        .option.correct {
-            background-color: #4CAF50;
-            border-color: #4CAF50;
-            color: white;
-            animation: correctAnswer 0.5s ease;
-        }
-        
-        .option.incorrect {
-            background-color: #f44336;
-            border-color: #f44336;
-            color: white;
-            animation: shake 0.5s ease;
-        }
-        
-        @keyframes correctAnswer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-        
-        .progress {
-            position: absolute;
-            top: 80px;
-            right: 20px;
-            background: #f2ac3b;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        
-        .completion-message {
-            text-align: center;
-            color: #1c2d4f;
-            font-size: 2.5rem;
-            margin-top: 40px;
-        }
-        
-        .restart-btn {
-            background: #f2ac3b;
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.5rem;
-            font-family: 'Schoulschreft', Arial, sans-serif;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .restart-btn:hover {
-            background: #e09a2f;
-            transform: scale(1.05);
-        }
-        
-        @media (max-width: 768px) {
-            .header {
-                font-size: 2rem;
-                padding: 15px;
-            }
-            
-            .question {
-                font-size: 1.5rem;
-                margin-bottom: 40px;
-            }
-            
-            .options {
-                gap: 20px;
-            }
-            
-            .option {
-                padding: 20px 30px;
-                font-size: 1.4rem;
-                min-width: 120px;
-            }
-            
-            .progress {
-                position: static;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Richteg oder falsch? – Random</title>
+  <style>
+    @font-face{
+      font-family:'Schoulschreft';
+      src:url('https://github.com/albrechtclaire1007/schoulschreft/raw/main/schoulschreft_bold%5B2%5D.TTF') format('truetype');
+    }
+    :root{ --blue:#1c2d4f; --gold:#f2ac3b; --ok:#16a34a; --bad:#dc2626; }
+    *{ box-sizing:border-box }
+    body{ margin:0; font-family:'Schoulschreft',Arial,sans-serif; background:#fff; color:#111; }
+    .header{ background:var(--blue); color:#fff; text-align:center; padding:18px; font-size:24px; font-weight:bold; }
+    .wrap{ max-width:900px; margin:0 auto; padding:24px; }
+    .progress{ text-align:center; color:var(--blue); font-weight:bold; margin-bottom:10px; }
+    .bar{ height:10px; background:#e6e9ef; border-radius:8px; overflow:hidden; margin:8px auto 18px; max-width:520px; }
+    .bar > div{ height:100%; width:0; background:var(--gold); transition:width .35s ease; }
+    .card{ border:4px solid var(--blue); border-radius:18px; padding:24px; font-size:22px; box-shadow:0 8px 24px rgba(28,45,79,.15); text-align:center; min-height:90px; display:flex; align-items:center; justify-content:center; }
+    .choices{ display:flex; gap:16px; justify-content:center; margin:18px 0; }
+    .choice{ display:flex; align-items:center; gap:10px; background:#fff; border:3px solid var(--gold); border-radius:14px; padding:14px 18px; cursor:pointer; font-size:22px; box-shadow:0 6px 18px rgba(242,172,59,.25); }
+    .choice:hover{ transform:translateY(-2px) }
+    .box{ width:28px; height:28px; border:3px solid var(--blue); border-radius:6px; background:#fff; position:relative; }
+    .choice.correct{ border-color:#4ade80; background:#dcfce7 }
+    .choice.incorrect{ border-color:#ef4444; background:#fef2f2 }
+    .tick{ position:absolute; inset:0; display:none; }
+    .choice.selected .tick{ display:block; background:var(--blue); clip-path:polygon(16% 56%, 8% 64%, 42% 94%, 96% 22%, 88% 14%, 42% 78%) }
+    .labels{ display:flex; gap:8px; justify-content:center; color:var(--blue); font-weight:bold; }
+    .feedback{ text-align:center; min-height:28px; font-size:18px; margin-top:8px; }
+    .feedback.ok{ color:var(--ok) } .feedback.bad{ color:var(--bad) }
+    .next{ display:none; margin:14px auto 0; background:var(--blue); color:#fff; border:none; border-radius:14px; padding:12px 20px; font-size:18px; cursor:pointer; }
+    .score{ text-align:center; color:var(--blue); font-weight:bold; margin-top:6px; }
+  </style>
 </head>
 <body>
-    <div class="header">
-        Richteg oder falsch?
+  <div class="header">Richteg oder falsch? Kräiz un.</div>
+  <div class="wrap">
+    <div class="progress">Fro <span id="qNum">1</span> / <span id="qTotal">5</span></div>
+    <div class="bar"><div id="barFill"></div></div>
+    <div class="labels">R = Richteg • F = Falsch</div>
+    <div class="card" id="questionText">…</div>
+    <div class="choices">
+      <button class="choice" id="btnTrue"  data-val="true"  aria-label="Richteg"><span class="box"><span class="tick"></span></span> R</button>
+      <button class="choice" id="btnFalse" data-val="false" aria-label="Falsch"><span class="box"><span class="tick"></span></span> F</button>
     </div>
-    
-    <div class="progress" id="progress">
-        Fro 1 vun 5
-    </div>
-    
-    <div class="quiz-container" id="quizContainer">
-        <div class="question" id="question">
-            D'Kroun ass um Kapp vum Groussherzog.
-        </div>
-        
-        <div class="options">
-            <div class="option richteg" onclick="checkAnswer(true)">
-                Richteg
-            </div>
-            <div class="option falsch" onclick="checkAnswer(false)">
-                Falsch
-            </div>
-        </div>
-    </div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next" id="nextBtn">Weider</button>
+    <div class="score" id="scoreBox"></div>
+  </div>
 
-    <script>
-        const questions = [
-            {
-                text: "D'Kroun ass um Kapp vum Groussherzog.",
-                correct: true
-            },
-            {
-                text: "De Groussherzog sëtzt um Troun.",
-                correct: true
-            },
-            {
-                text: "Den Troun ass am Palais.",
-                correct: true
-            },
-            {
-                text: "De Palais ass zu London.",
-                correct: false
-            },
-            {
-                text: "Den neie Groussherzog heescht Henri.",
-                correct: false
-            }
-        ];
-        
-        let currentQuestion = 0;
-        let score = 0;
-        
-        function updateProgress() {
-            document.getElementById('progress').textContent = `Fro ${currentQuestion + 1} vun ${questions.length}`;
-        }
-        
-        function checkAnswer(selectedAnswer) {
-            const options = document.querySelectorAll('.option');
-            const correctAnswer = questions[currentQuestion].correct;
-            
-            // Disable further clicks
-            options.forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            if (selectedAnswer === correctAnswer) {
-                // Correct answer
-                const correctOption = selectedAnswer ? options[0] : options[1];
-                correctOption.classList.add('correct');
-                score++;
-                
-                setTimeout(() => {
-                    nextQuestion();
-                }, 1500);
-            } else {
-                // Incorrect answer
-                const incorrectOption = selectedAnswer ? options[0] : options[1];
-                const correctOption = selectedAnswer ? options[1] : options[0];
-                
-                incorrectOption.classList.add('incorrect');
-                correctOption.classList.add('correct');
-                
-                setTimeout(() => {
-                    nextQuestion();
-                }, 2000);
-            }
-        }
-        
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion < questions.length) {
-                // Load next question
-                document.getElementById('question').textContent = questions[currentQuestion].text;
-                
-                // Reset options
-                const options = document.querySelectorAll('.option');
-                options.forEach(option => {
-                    option.classList.remove('correct', 'incorrect');
-                    option.style.pointerEvents = 'auto';
-                });
-                
-                updateProgress();
-            } else {
-                // Quiz completed
-                showCompletion();
-            }
-        }
-        
-        function showCompletion() {
-            const container = document.getElementById('quizContainer');
-            container.innerHTML = `
-                <div class="completion-message">
-                    🎉 Bravo! 🎉<br>
-                    Du hues ${score} vun ${questions.length} Froen richteg beäntwert!
-                    <button class="restart-btn" onclick="restartQuiz()">
-                        Nach eng Kéier spillen
-                    </button>
-                </div>
-            `;
-            
-            document.getElementById('progress').style.display = 'none';
-        }
-        
-        function restartQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            
-            document.getElementById('progress').style.display = 'block';
-            updateProgress();
-            
-            const container = document.getElementById('quizContainer');
-            container.innerHTML = `
-                <div class="question" id="question">
-                    ${questions[0].text}
-                </div>
-                
-                <div class="options">
-                    <div class="option richteg" onclick="checkAnswer(true)">
-                        Richteg
-                    </div>
-                    <div class="option falsch" onclick="checkAnswer(false)">
-                        Falsch
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Initialize
-        updateProgress();
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'987e0faf31769bf7',t:'MTc1OTM0Mzc0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <script>
+    function shuffleArray(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a; }
+
+    let questions = shuffleArray([
+      { text:"D'Kroun ass um Kapp vum Groussherzog.", correct:true  },
+      { text:"De Groussherzog sëtzt um Troun.",       correct:true  },
+      { text:"Den Troun ass am Palais.",              correct:true  },
+      { text:"De Palais ass zu London.",              correct:false },
+      { text:"Den neie Groussherzog heescht Henri.",  correct:false } // et ass Guillaume
+    ]);
+
+    const qText=document.getElementById('questionText'), qNum=document.getElementById('qNum'),
+          qTotal=document.getElementById('qTotal'), barFill=document.getElementById('barFill'),
+          btnT=document.getElementById('btnTrue'), btnF=document.getElementById('btnFalse'),
+          feedback=document.getElementById('feedback'), nextBtn=document.getElementById('nextBtn'),
+          scoreBox=document.getElementById('scoreBox');
+
+    qTotal.textContent=questions.length;
+    let index=0, score=0, locked=false;
+
+    function render(){
+      const q=questions[index];
+      qText.textContent=q.text; qNum.textContent=index+1;
+      barFill.style.width=((index)/questions.length)*100+'%';
+      feedback.textContent=''; feedback.className='feedback'; nextBtn.style.display='none'; locked=false;
+      [btnT,btnF].forEach(b=>b.className='choice');
+      scoreBox.textContent=`Punkten: ${score}/${questions.length}`;
+    }
+
+    function handleAnswer(btn){
+      if(locked) return; locked=true;
+      const user = (btn.dataset.val==='true');
+      const correct = questions[index].correct;
+      btn.classList.add('selected');
+      if(user===correct){ score++; btn.classList.add('correct'); feedback.textContent='Richteg! Gutt gemaach!'; feedback.className='feedback ok'; }
+      else { btn.classList.add('incorrect'); (correct?btnT:btnF).classList.add('correct'); feedback.textContent='Falsch – kuck déi richteg Äntwert.'; feedback.className='feedback bad'; }
+      nextBtn.style.display='inline-block';
+    }
+
+    btnT.onclick=()=>handleAnswer(btnT);
+    btnF.onclick=()=>handleAnswer(btnF);
+    nextBtn.onclick=()=>{
+      index++;
+      if(index<questions.length) render();
+      else{
+        barFill.style.width='100%';
+        qText.textContent='Quiz fäerdeg!';
+        feedback.className='feedback ok';
+        feedback.textContent=(score===questions.length)?'Perfekt! 🎉':(score>=Math.ceil(questions.length*0.8))?'Super Leeschtung! 👏':'Gutt probéiert! 👍';
+        document.querySelector('.choices').style.display='none';
+        nextBtn.textContent='Nach emol spillen';
+        nextBtn.onclick=()=>location.reload();
+        nextBtn.style.display='inline-block';
+        scoreBox.textContent=`Punkten: ${score}/${questions.length}`;
+      }
+    };
+
+    render();
+  </script>
+</body>
 </html>
+
